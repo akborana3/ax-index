@@ -1,0 +1,2422 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="lavender">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AxBrowser: Open-Source Android Browser with AI Agent, Dev Tools & Proxy</title>
+<meta name="description" content="AxBrowser is an open-source Android browser with a built-in AI agent, developer tools, authenticated proxy, ad-block and fingerprint protection. Built by Abhishek Borana (AKAY).">
+<meta name="keywords" content="AxBrowser, Ax Browser, Android browser, open source Android browser, AI browser agent, AI agent browser, browser with dev tools, Android browser with proxy, authenticated proxy browser, ad blocker browser, fingerprint protection, privacy browser, Kotlin Jetpack Compose browser, Abhishek Borana, AKAY, akay, akborana, akborana3">
+<meta name="author" content="Abhishek Borana">
+<meta name="creator" content="Abhishek Borana (AKAY, akborana, akborana3)">
+<meta name="application-name" content="AxBrowser">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#C8B2F8" id="tc">
+<script>
+  try {
+    var d = document.documentElement, s = localStorage.getItem('ax-theme');
+    d.dataset.theme = s || 'lavender';
+  } catch (e) {
+    document.documentElement.dataset.theme = 'lavender';
+  }
+  document.documentElement.classList.add('js');
+  var m = document.getElementById('tc');
+  if (m && document.documentElement.dataset.theme === 'dark') m.content = '#0e0b16';
+</script>
+<link rel="canonical" href="https://axbrowser.com/">
+<link rel="author" href="https://akay.is-a.dev">
+<link rel="apple-touch-icon" href="/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AxBrowser">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://axbrowser.com/">
+<meta property="og:title" content="AxBrowser: Open-Source Android Browser with AI Agent, Dev Tools & Proxy">
+<meta property="og:description" content="AxBrowser is an open-source Android browser with a built-in AI agent, developer tools, authenticated proxy, ad-block and fingerprint protection. Built by Abhishek Borana (AKAY).">
+<meta property="og:image" content="https://axbrowser.com/logo.png">
+<meta property="og:image:alt" content="AxBrowser logo: a violet Ax monogram with a crescent and a sparkle">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AxBrowser: Open-Source Android Browser with AI Agent, Dev Tools & Proxy">
+<meta name="twitter:description" content="AxBrowser is an open-source Android browser with a built-in AI agent, developer tools, authenticated proxy, ad-block and fingerprint protection. Built by Abhishek Borana (AKAY).">
+<meta name="twitter:image" content="https://axbrowser.com/logo.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://axbrowser.com/#author",
+      "name": "Abhishek Borana",
+      "alternateName": ["AKAY", "akay", "akborana", "akborana3"],
+      "url": "https://akay.is-a.dev",
+      "sameAs": [
+        "https://akay.is-a.dev",
+        "https://github.com/akborana3",
+        "https://t.me/AxBrowser"
+      ],
+      "jobTitle": "Independent Developer"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://axbrowser.com/#site",
+      "url": "https://axbrowser.com/",
+      "name": "AxBrowser",
+      "description": "AxBrowser is an open-source Android browser with a built-in AI agent, developer tools, authenticated proxy, ad-block and fingerprint protection. Built by Abhishek Borana (AKAY).",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://axbrowser.com/#author" }
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": "https://axbrowser.com/#app",
+      "name": "AxBrowser",
+      "alternateName": ["Ax Browser", "AxBrowser for Android"],
+      "url": "https://axbrowser.com/",
+      "image": "https://axbrowser.com/logo.png",
+      "description": "Open-source Android browser with a built-in AI agent, developer tools, authenticated proxy, ad-block and fingerprint protection.",
+      "operatingSystem": "Android",
+      "applicationCategory": "BrowserApplication",
+      "author": { "@id": "https://axbrowser.com/#author" },
+      "creator": { "@id": "https://axbrowser.com/#author" },
+      "downloadUrl": "https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk",
+      "installUrl": "https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk",
+      "codeRepository": "https://github.com/akborana3/AxBrowser",
+      "featureList": [
+        "AI agent (ReAct loop, models via OpenRouter)",
+        "Developer tools (Elements, Console, Network)",
+        "Proxy support with authentication",
+        "Ad-block with per-site allowlist",
+        "Fingerprint protection",
+        "Password manager encrypted with Android Keystore",
+        "Biometric and PIN app lock",
+        "Reader mode",
+        "Tab groups with drag and drop",
+        "Bookmark import and export",
+        "Wi-Fi-only downloads",
+        "Battery-saver image blocking",
+        "In-app updates from GitHub nightly releases"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is AxBrowser?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AxBrowser is an open-source Android web browser with a built-in AI agent, developer tools, proxy support, ad-block and fingerprint protection. It is built with Kotlin and Jetpack Compose and updated through nightly releases on GitHub."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is AxBrowser open source?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The full source code is publicly available on GitHub at github.com/akborana3/AxBrowser, and nightly APKs are built and published directly from the repository."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AxBrowser have an AI agent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The agent runs a ReAct loop: it reasons about your goal, chooses one browser action as JSON, reads the result and repeats until the task is done. You choose the model through OpenRouter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use a proxy with a username and password?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. AxBrowser sends browser traffic through your proxy using Android's WebView ProxyController and passes credentials the way Chromium expects, so authenticated proxies connect without affecting other apps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who made AxBrowser and how can I contact them?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AxBrowser is built by Abhishek Borana (AKAY — akay.is-a.dev). You can reach the community or report feedback on Telegram at t.me/AxBrowser or on GitHub at github.com/akborana3/AxBrowser."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* Reference Palette: Lavender #C8B2F8, Chartreuse #D4FF3F, Tomato Red #E84234 */
+  --lav: #C8B2F8;
+  --lav-deep: #b395f6;
+  --lav-pale: #dfd1fc;
+  --cr: #D4FF3F;
+  --tm: #E84234;
+  --ink: #110d1d;
+
+  /* Default Theme: Reference Lavender Editorial Canvas */
+  --bg: #C8B2F8;
+  --surf: rgba(255, 255, 255, 0.58);
+  --surf-solid: #dfd0fc;
+  --panel-bg: #110d1d;
+  --panel-tx: #f5f2ff;
+  --tx: #110d1d;
+  --mu: rgba(17, 13, 29, 0.74);
+  --line: rgba(17, 13, 29, 0.18);
+  --bd: #110d1d;
+
+  --f-serif: "Instrument Serif", Georgia, serif;
+  --f-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --f-mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Dynamic velocity CSS variables updated via JS */
+  --scroll-skew: 0deg;
+  --scroll-scale: 1;
+}
+
+[data-theme="dark"] {
+  --bg: #0e0b16;
+  --surf: rgba(26, 20, 43, 0.74);
+  --surf-solid: #181326;
+  --panel-bg: #151022;
+  --panel-tx: #f5f2ff;
+  --tx: #f4effe;
+  --mu: rgba(244, 239, 254, 0.7);
+  --line: rgba(200, 178, 248, 0.22);
+  --bd: #C8B2F8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--cr);
+  color: var(--ink);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font: 400 1.05rem/1.6 var(--f-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Scroll Progress Bar */
+#prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 60;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--tm), var(--cr), var(--ink));
+}
+
+/* Velocity HUD Badge (Bottom Left) */
+.vel-hud {
+  position: fixed;
+  left: max(18px, 2.5vw);
+  bottom: max(18px, 2.5vh);
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--bd);
+  background: var(--surf);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font: 600 0.65rem/1 var(--f-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  box-shadow: 2px 2px 0 var(--bd);
+  transition: transform 0.15s ease;
+}
+
+.vel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cr);
+  border: 1px solid var(--ink);
+  transition: transform 0.1s, background 0.15s;
+}
+
+/* 3D Canvas & 2D Velocity Particle Trail Canvas */
+#scene, #fx-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#scene { z-index: 0; }
+#fx-canvas { z-index: 25; }
+
+main, footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Accessibility Skip Link */
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -64px;
+  background: var(--cr);
+  color: var(--ink);
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  z-index: 100;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 14px; }
+
+/* Top Editorial Navigation */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px max(20px, 4vw);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1.5px solid var(--line);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--tx);
+  text-decoration: none;
+  font: 800 1.05rem/1 var(--f-sans);
+  letter-spacing: -0.02em;
+}
+
+.mark-wrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1.5px solid var(--bd);
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 2px 2px 0 var(--cr);
+  transition: transform 0.3s cubic-bezier(.2,.8,.2,1);
+}
+.logo:hover .mark-wrap {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.mark {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+nav a {
+  color: var(--tx);
+  text-decoration: none;
+  font: 700 0.7rem/1 var(--f-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  padding: 9px 12px;
+  border-radius: 999px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+nav a:hover,
+nav a.on {
+  background: var(--cr);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.hact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--bd);
+  background: transparent;
+  color: var(--tx);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.3s cubic-bezier(.2,.8,.2,1);
+}
+
+.tg:hover {
+  background: var(--cr);
+  color: var(--ink);
+  transform: rotate(22deg) scale(1.06);
+}
+
+[data-theme="lavender"] .sun,
+[data-theme="dark"] .moon {
+  display: none;
+}
+
+/* Editorial Pill Buttons with Magnetic & Ripple Support */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1.5px solid var(--bd);
+  font: 700 0.75rem/1 var(--f-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+  color: var(--tx);
+  background: var(--surf);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  will-change: transform;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s, transform 0.18s cubic-bezier(.2,.8,.2,1);
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  background: var(--cr);
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn.p {
+  background: var(--cr);
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.btn.p:hover {
+  background: #e2ff66;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.btn.tm {
+  background: var(--tm);
+  color: #fff;
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.btn.tm:hover {
+  background: #ff5447;
+  color: #fff;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.btn .arr {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.22s cubic-bezier(.2,.8,.2,1);
+}
+
+.btn:hover .arr {
+  transform: translate(3px, -1px);
+}
+
+/* Right Editorial Rail (Reference Image Counter & Quick Jump) */
+.editorial-rail {
+  position: fixed;
+  right: max(22px, 3vw);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 22px;
+  text-align: right;
+  pointer-events: none;
+}
+
+.rail-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  font: 700 0.65rem/1.35 var(--f-sans);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.rail-specs a {
+  pointer-events: auto;
+  color: var(--tx);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.rail-specs a:hover,
+.rail-specs a.on {
+  opacity: 1;
+  transform: translateX(-5px);
+}
+
+.rail-specs a.on::before {
+  content: "● ";
+  color: var(--tm);
+}
+
+.rail-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  font: 700 1rem/1 var(--f-sans);
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--bd);
+  background: var(--surf);
+  backdrop-filter: blur(8px);
+  box-shadow: 3px 3px 0 var(--bd);
+}
+
+.rail-counter .bar-line {
+  width: 28px;
+  height: 2px;
+  background: var(--tm);
+}
+
+.rail-counter small {
+  font: 600 0.56rem/1.25 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+
+/* Layout Containers */
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 max(22px, 4vw);
+}
+
+/* Hero Section ("Creative Momentum" Reference Layout) */
+.hero {
+  min-height: calc(100svh - 68px);
+  display: grid;
+  align-items: center;
+  padding: clamp(32px, 6vh, 76px) 0;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 32px;
+}
+
+.micro-kicker {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+  font: 700 0.68rem/1.3 var(--f-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+  padding: 6px 12px;
+  border-left: 3.5px solid var(--tm);
+  background: var(--surf);
+  border-radius: 0 10px 10px 0;
+  backdrop-filter: blur(6px);
+}
+
+h1 {
+  font: 400 clamp(3.5rem, 8.4vw, 7.1rem)/0.92 var(--f-serif);
+  letter-spacing: -0.02em;
+  position: relative;
+  transform: skewY(var(--scroll-skew));
+  transition: transform 0.12s ease-out;
+}
+
+.rl {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.rl > span {
+  display: block;
+  animation: heroRise 0.95s cubic-bezier(.16, 1, .3, 1) both;
+  animation-delay: calc(0.1s + var(--i, 0) * 0.14s);
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(105%) rotate(2deg);
+  }
+}
+
+h1 .swash {
+  position: relative;
+  display: inline-block;
+}
+
+/* Decorative flourish above title inspired by "Creative Momentum" */
+h1 .swash::before {
+  content: "∿";
+  position: absolute;
+  top: -0.45em;
+  left: 32%;
+  font-size: 0.45em;
+  color: var(--tm);
+  transform: scaleX(1.7);
+  pointer-events: none;
+  animation: floatWave 3.2s ease-in-out infinite;
+}
+
+@keyframes floatWave {
+  0%, 100% { transform: scaleX(1.7) translateY(0); }
+  50% { transform: scaleX(1.85) translateY(-4px); }
+}
+
+h1 em {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(transparent 62%, var(--cr) 62% 92%, transparent 92%);
+  padding: 0 0.06em;
+}
+
+.hero .lead {
+  max-width: 32rem;
+  margin-top: 22px;
+  font-size: 1.06rem;
+  line-height: 1.58;
+  color: var(--mu);
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 28px;
+}
+
+/* Interactive Color Swatch Cards (Click to pulse 3D lighting) */
+.palette-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 12px;
+  border: 1.5px solid var(--bd);
+  background: var(--surf);
+  backdrop-filter: blur(8px);
+  font: 600 0.68rem/1 var(--f-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 2px 2px 0 var(--bd);
+  transition: transform 0.18s cubic-bezier(.2,.8,.2,1), box-shadow 0.18s;
+}
+
+.swatch:hover {
+  transform: translateY(-3px) rotate(-1.5deg);
+  box-shadow: 4px 4px 0 var(--bd);
+}
+
+.swatch:active {
+  transform: scale(0.95);
+}
+
+.swatch i {
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+  border: 1px solid var(--ink);
+  display: inline-block;
+}
+
+/* Velocity-Driven Marquee Ticker */
+.tick {
+  position: relative;
+  z-index: 4;
+  overflow: hidden;
+  background: var(--cr);
+  color: var(--ink);
+  border-block: 2px solid var(--ink);
+  transform: rotate(-1.1deg);
+  margin: 14px -2vw;
+  box-shadow: 0 14px 32px rgba(17, 13, 29, 0.16);
+}
+
+.tick-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.tick span {
+  padding: 14px 22px;
+  font: 800 0.84rem/1 var(--f-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tick i {
+  flex: none;
+  align-self: center;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--tm);
+  border: 1.5px solid var(--ink);
+}
+
+/* Editorial Content Sections & 3D Tilt Glare Cards */
+.sec {
+  padding: clamp(54px, 9.5vh, 105px) 0;
+  perspective: 1200px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  max-width: 44rem;
+  padding: clamp(24px, 3.8vw, 44px);
+  border-radius: 26px;
+  border: 2px solid var(--bd);
+  background: var(--surf);
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  box-shadow: 10px 10px 0 var(--bd);
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) skewY(var(--scroll-skew));
+  transition: transform 0.16s ease-out, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+/* Spotlight Glare Layer inside Cards */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(480px circle at var(--gx, 50%) var(--gy, 50%), rgba(212, 255, 63, 0.22), transparent 65%);
+  opacity: var(--gop, 0);
+  transition: opacity 0.3s ease;
+}
+
+.sec.right .card {
+  margin-left: auto;
+  margin-right: 4rem;
+}
+
+/* Scroll Reveal State for Cards */
+.js .card {
+  opacity: 0;
+   translate: 0 28px;
+  transition: opacity 0.65s cubic-bezier(.16, 1, .3, 1), translate 0.65s cubic-bezier(.16, 1, .3, 1), transform 0.16s ease-out;
+}
+.js .card.in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.sec-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  background: var(--cr);
+  color: var(--ink);
+  font: 700 0.68rem/1 var(--f-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.sec-tag.tm {
+  background: var(--tm);
+  color: #fff;
+}
+
+h2 {
+  font: 400 clamp(2.2rem, 4.4vw, 3.45rem)/1.03 var(--f-serif);
+  letter-spacing: -0.015em;
+  margin-bottom: 16px;
+}
+
+h2 mark {
+  color: var(--ink);
+  background: var(--cr);
+  padding: 0 0.16em;
+  border-radius: 7px;
+  border: 1.5px solid var(--ink);
+  font-style: italic;
+  display: inline-block;
+  transform: rotate(-1deg);
+  transition: transform 0.25s cubic-bezier(.2,.8,.2,1);
+}
+
+.card:hover h2 mark {
+  transform: rotate(1.5deg) scale(1.03);
+}
+
+h2 mark.tm {
+  background: var(--tm);
+  color: #fff;
+}
+
+.sec .lead {
+  color: var(--mu);
+  font-size: 1.04rem;
+}
+
+/* Animated Feature Definition Rows */
+.rows {
+  margin-top: 26px;
+  border-bottom: 1.5px solid var(--line);
+}
+
+.rows div {
+  display: grid;
+  grid-template-columns: minmax(0, 11.2rem) 1fr;
+  gap: 6px 20px;
+  padding: 15px 10px;
+  border-top: 1.5px solid var(--line);
+  position: relative;
+  border-radius: 10px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.rows div::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 4px;
+  border-radius: 4px;
+  background: var(--tm);
+  transform: scaleY(0);
+  transition: transform 0.25s cubic-bezier(.2,.8,.2,1);
+}
+
+.rows div:hover {
+  background: rgba(212, 255, 63, 0.16);
+  transform: translateX(6px);
+}
+
+.rows div:hover::before {
+  transform: scaleY(1);
+}
+
+.rows dt {
+  font-weight: 700;
+  font-size: 0.96rem;
+}
+
+.rows dd {
+  color: var(--mu);
+  font-size: 0.96rem;
+}
+
+/* Interactive Panels (Agent Log & DevTools) */
+.panel {
+  position: relative;
+  z-index: 2;
+  margin-top: 26px;
+  background: var(--panel-bg);
+  color: var(--panel-tx);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 6px 6px 0 var(--tm);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 0 0 16px;
+  background: var(--lav);
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  font: 700 0.82rem/1 var(--f-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-indicator::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--tm);
+  border: 1px solid var(--ink);
+  animation: pulseDot 1.4s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.55; }
+}
+
+.bar .btn {
+  min-height: 42px;
+  border: 0;
+  border-left: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--cr);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.bar .btn:hover {
+  background: #e5ff78;
+}
+
+#log {
+  padding: 18px;
+  font: 400 0.8rem/1.7 var(--f-mono);
+  min-height: 19.5rem;
+}
+
+.ln {
+  display: grid;
+  grid-template-columns: 6.8rem 1fr;
+  gap: 10px;
+  padding: 3px 0;
+  animation: rowFade 0.25s ease both;
+}
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateX(-6px); }
+}
+
+.ln b {
+  justify-self: start;
+  align-self: start;
+  padding: 1px 8px;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.k-goal b { background: var(--lav); }
+.k-thought b { background: #f4effe; }
+.k-action b { background: var(--tm); color: #fff; }
+.k-observe b, .k-done b { background: var(--cr); }
+
+.cur::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: var(--cr);
+  animation: bl 1s steps(2) infinite;
+}
+
+@keyframes bl { 50% { opacity: 0; } }
+
+/* DevTools Tabs */
+.tabs {
+  display: flex;
+}
+
+.tabs button {
+  min-height: 42px;
+  padding: 0 14px;
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  color: var(--ink);
+  opacity: 0.6;
+  font: 700 0.78rem var(--f-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.tabs button[aria-selected="true"] {
+  opacity: 1;
+  border-color: var(--tm);
+  background: rgba(255,255,255,0.25);
+}
+
+.pane {
+  padding: 18px;
+  font: 400 0.8rem/1.75 var(--f-mono);
+  overflow-x: auto;
+  min-height: 12rem;
+}
+
+.pane[hidden] { display: none; }
+
+table {
+  border-collapse: collapse;
+  min-width: 31rem;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 4px 16px 4px 0;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+th { color: var(--lav); }
+
+.ok {
+  background: var(--cr);
+  color: var(--ink);
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.bad {
+  background: var(--tm);
+  color: #fff;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.warn {
+  background: var(--lav);
+  color: var(--ink);
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.note {
+  color: rgba(245, 242, 255, 0.65);
+  font-size: 0.78rem;
+  padding: 0 18px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Proxy Route Diagram with Animated Packets */
+.route {
+  margin: 24px 0 8px;
+}
+
+.route svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.route rect {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.route .n1 { fill: var(--lav); }
+.route .n2 { fill: var(--cr); }
+.route .n3 { fill: #ffffff; }
+.route .n0 { fill: rgba(255,255,255,0.35); stroke-dasharray: 4 3; }
+
+.route text {
+  fill: var(--ink);
+  font: 700 13px var(--f-sans);
+}
+
+.route .fl {
+  fill: none;
+  stroke: var(--tm);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 3 9;
+  animation: dash 0.8s linear infinite;
+}
+
+.route .dr {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-dasharray: 4 6;
+  opacity: 0.55;
+}
+
+.pkt {
+  fill: var(--tm);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  animation: packetFlow 2.4s cubic-bezier(.4,0,.2,1) infinite;
+}
+
+@keyframes packetFlow {
+  0% { transform: translateX(0); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(192px); opacity: 0; }
+}
+
+.route figcaption {
+  margin-top: 8px;
+  color: var(--mu);
+  font-size: 0.88rem;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -12; }
+}
+
+/* FAQ Accordion */
+.faq { margin-top: 18px; }
+.faq details { border-top: 1.5px solid var(--line); }
+.faq details:last-child { border-bottom: 1.5px solid var(--line); }
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 54px;
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+  transition: padding-left 0.2s;
+}
+.faq summary:hover { padding-left: 6px; }
+.faq summary::-webkit-details-marker { display: none; }
+
+.faq summary::after {
+  content: "+";
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--bd);
+  background: var(--cr);
+  color: var(--ink);
+  font-weight: 700;
+  transition: transform 0.25s, background 0.2s;
+}
+
+.faq details[open] summary::after {
+  transform: rotate(45deg);
+  background: var(--tm);
+  color: #fff;
+}
+
+.faq p {
+  color: var(--mu);
+  padding: 0 0 18px;
+  font-size: 0.96rem;
+  animation: rowFade 0.3s ease both;
+}
+
+.faq a, .lead a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* QR Code "Scan to Install" Modal */
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(17, 13, 29, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.qr-modal[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.qr-box {
+  width: min(420px, 100%);
+  background: var(--lav);
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  border-radius: 26px;
+  padding: 28px;
+  box-shadow: 12px 12px 0 var(--cr);
+  text-align: center;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(.16, 1, .3, 1);
+}
+
+.qr-modal[aria-hidden="false"] .qr-box {
+  transform: translateY(0) scale(1);
+}
+
+.qr-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.qr-head h3 {
+  font: 400 1.9rem/1 var(--f-serif);
+}
+
+.qr-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: var(--tm);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.qr-frame {
+  margin: 16px auto;
+  width: 220px;
+  height: 220px;
+  padding: 14px;
+  background: #fff;
+  border: 2.5px solid var(--ink);
+  border-radius: 20px;
+  box-shadow: 5px 5px 0 var(--ink);
+  display: grid;
+  place-items: center;
+}
+
+.qr-frame img, .qr-frame svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.qr-url {
+  font: 600 0.68rem/1.4 var(--f-mono);
+  background: rgba(255,255,255,0.65);
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  padding: 8px 10px;
+  word-break: break-all;
+  margin-bottom: 16px;
+}
+
+/* Footer */
+footer {
+  padding: 42px 0 max(42px, env(safe-area-inset-bottom));
+  border-top: 2px solid var(--bd);
+  background: color-mix(in srgb, var(--bg) 90%, #000 10%);
+  font-size: 0.92rem;
+}
+
+footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+footer a {
+  color: var(--tx);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1120px) {
+  .editorial-rail, .vel-hud { display: none; }
+  .sec.right .card { margin-right: 0; }
+}
+
+@media (max-width: 900px) {
+  nav { display: none; }
+  .hero-grid { grid-template-columns: 1fr; }
+  #scene { opacity: 0.48; }
+}
+
+@media (max-width: 560px) {
+  .rows div { grid-template-columns: 1fr; }
+  .ln { grid-template-columns: 1fr; gap: 2px; }
+  .hact .qr-trigger span:first-child { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- 3D Glossy Intertwined Lavender & Tomato Red Tubes + Chartreuse Orbitals -->
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<!-- 2D Mouse & Touch Velocity Particle Trail Canvas -->
+<canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+<!-- Live Velocity Physics Telemetry HUD -->
+<div class="vel-hud" id="vel-hud" aria-hidden="true">
+  <span class="vel-dot" id="vel-dot"></span>
+  <span id="vel-txt">PHYSICS // IDLE 0.0x</span>
+</div>
+
+<!-- Right-Side Editorial Rail -->
+<aside class="editorial-rail" aria-label="Section index">
+  <div class="rail-specs">
+    <a href="#top" class="on" data-sec="top">01 // Overview</a>
+    <a href="#agent" data-sec="agent">02 // AI Agent</a>
+    <a href="#devtools" data-sec="devtools">03 // Dev Tools</a>
+    <a href="#proxy" data-sec="proxy">04 // Auth Proxy</a>
+    <a href="#privacy" data-sec="privacy">05 // Privacy</a>
+    <a href="#browsing" data-sec="browsing">06 // Browsing</a>
+    <a href="#get" data-sec="get">07 // Nightly APK</a>
+  </div>
+  <div class="rail-counter">
+    <span id="cur-idx">01</span>
+    <span class="bar-line"></span>
+    <span>07</span>
+    <small>Touch / Scroll<br>Reactive 3D</small>
+  </div>
+</aside>
+
+<header>
+  <a class="logo" href="#top" aria-label="AxBrowser home">
+    <span class="mark-wrap">
+      <img class="mark" src="data:image/webp;base64,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" width="36" height="36" alt="AxBrowser">
+    </span>
+    AxBrowser
+  </a>
+
+  <nav aria-label="Primary">
+    <a href="#agent">AI Agent</a>
+    <a href="#devtools">Dev Tools</a>
+    <a href="#proxy">Proxy</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#browsing">Browsing</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://github.com/akborana3/AxBrowser" target="_blank" rel="noopener">Source</a>
+    <a href="https://t.me/AxBrowser" target="_blank" rel="noopener">Telegram</a>
+  </nav>
+
+  <div class="hact">
+    <button class="tg" id="theme" type="button" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <g class="sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g>
+        <path class="moon" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>
+      </svg>
+    </button>
+    <button class="btn qr-trigger mag" type="button" aria-haspopup="dialog" aria-controls="qr-modal">
+      <span>Scan QR</span>
+      <span class="arr">⊞</span>
+    </button>
+    <a class="btn p mag" href="https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk">
+      <span>Download APK</span>
+      <span class="arr">↘</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- 01: HERO SECTION -->
+  <section class="hero" id="top" data-idx="01" data-rx="0.22" data-ry="0.45" data-sc="1" data-logo="1">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="micro-kicker">
+            <span>ANDROID // OPEN SOURCE</span>
+            <span>AI AGENT &amp; DEVTOOLS</span>
+            <span>BUILT BY AKAY (akay.is-a.dev)</span>
+          </div>
+
+          <h1>
+            <span class="rl" style="--i:0"><span>Autonomous</span></span>
+            <span class="rl" style="--i:1"><span><span class="swash"><em>Mo</em>mentum.</span></span></span>
+          </h1>
+
+          <p class="lead">
+            AxBrowser is an open-source Android browser with a built-in ReAct AI agent, desktop-grade developer tools, authenticated WebView proxy, ad-block, and fingerprint protection. Swipe, scroll, or drag to interact with the live 3D core.
+          </p>
+
+          <div class="btns">
+            <a class="btn p mag" href="https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk">
+              <span>Download Nightly APK</span>
+              <span class="arr">→</span>
+            </a>
+            <button class="btn qr-trigger mag" type="button">
+              <span>Scan QR to Phone</span>
+              <span class="arr">⊞</span>
+            </button>
+            <a class="btn tm mag" href="https://github.com/akborana3/AxBrowser" target="_blank" rel="noopener">
+              <span>Open Source Code</span>
+              <span class="arr">↗</span>
+            </a>
+            <a class="btn mag" href="https://t.me/AxBrowser" target="_blank" rel="noopener">
+              <span>Telegram: t.me/AxBrowser</span>
+              <span class="arr">↗</span>
+            </a>
+          </div>
+
+          <div class="palette-badges" aria-label="Interactive Design Accents — Click to pulse 3D sculpture">
+            <button type="button" class="swatch" data-color="#C8B2F8"><i style="background:#C8B2F8"></i> Lavender #C8B2F8</button>
+            <button type="button" class="swatch" data-color="#D4FF3F"><i style="background:#D4FF3F"></i> Chartreuse #D4FF3F</button>
+            <button type="button" class="swatch" data-color="#E84234"><i style="background:#E84234"></i> Tomato Red #E84234</button>
+          </div>
+        </div>
+        <div aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VELOCITY-DRIVEN MARQUEE TICKER -->
+  <div class="tick" aria-hidden="true">
+    <div class="tick-track" id="marquee-track">
+      <span>ReAct AI Agent</span><i></i>
+      <span>Mobile Dev Tools</span><i></i>
+      <span>Authenticated Proxy</span><i></i>
+      <span>100% Open Source</span><i></i>
+      <span>Ad-Block &amp; Fingerprint Shield</span><i></i>
+      <span>Nightly GitHub APK</span><i></i>
+      <span>Built by AKAY</span><i></i>
+      <span>ReAct AI Agent</span><i></i>
+      <span>Mobile Dev Tools</span><i></i>
+      <span>Authenticated Proxy</span><i></i>
+      <span>100% Open Source</span><i></i>
+      <span>Ad-Block &amp; Fingerprint Shield</span><i></i>
+      <span>Nightly GitHub APK</span><i></i>
+      <span>Built by AKAY</span><i></i>
+    </div>
+  </div>
+
+  <!-- 02: AI AGENT -->
+  <section class="sec" id="agent" data-idx="02" data-rx="0.95" data-ry="1.35" data-sc="0.92" aria-labelledby="h-agent">
+    <div class="wrap">
+      <div class="card tilt-card">
+        <span class="sec-tag">02 // Autonomous ReAct Loop</span>
+        <h2 id="h-agent">An <mark>AI agent</mark> that works the page while you watch.</h2>
+        <p class="lead">
+          The agent runs a transparent ReAct loop. It reasons about your goal, picks one browser action as JSON, reads what changed on the DOM, and repeats until the job is done. Connect any model via OpenRouter.
+        </p>
+
+        <div class="panel">
+          <div class="bar">
+            <span class="live-indicator">Live Agent Trace</span>
+            <button class="btn" id="replay" type="button">Replay Trace ↻</button>
+          </div>
+          <div id="log" role="log" aria-label="Example agent run"></div>
+        </div>
+
+        <dl class="rows">
+          <div>
+            <dt>Reasons first</dt>
+            <dd>Every step opens with a concise thought so you can see why the agent is about to act.</dd>
+          </div>
+          <div>
+            <dt>One JSON action per step</dt>
+            <dd>Actions execute sequentially against the live page and return real DOM observations.</dd>
+          </div>
+          <div>
+            <dt>Your choice of model</dt>
+            <dd>Pick any model on OpenRouter. Switching providers never breaks the browser loop.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03: DEV TOOLS -->
+  <section class="sec right" id="devtools" data-idx="03" data-rx="1.65" data-ry="2.25" data-sc="0.96" aria-labelledby="h-dev">
+    <div class="wrap">
+      <div class="card tilt-card">
+        <span class="sec-tag tm">03 // Built-in Inspector</span>
+        <h2 id="h-dev">Real <mark class="tm">dev tools</mark>, right on your phone.</h2>
+        <p class="lead">
+          Open developer tools on any tab to inspect DOM structure, monitor console logs, and watch network requests in real time. Toggle your proxy or ad-blocker and compare what loads.
+        </p>
+
+        <div class="panel">
+          <div class="bar">
+            <div class="tabs" role="tablist" aria-label="Dev tools panels">
+              <button role="tab" id="t-el" aria-controls="p-el" aria-selected="true" type="button">Elements</button>
+              <button role="tab" id="t-co" aria-controls="p-co" aria-selected="false" type="button">Console</button>
+              <button role="tab" id="t-ne" aria-controls="p-ne" aria-selected="false" type="button">Network</button>
+            </div>
+            <button class="btn" id="sim-net" type="button">+ Simulate Request</button>
+          </div>
+          <div class="pane" id="p-el" role="tabpanel" aria-labelledby="t-el"><pre>&lt;main class="page"&gt;
+  &lt;h1&gt;Weekend sale&lt;/h1&gt;
+  &lt;ul id="products"&gt;
+    &lt;li class="item" data-id="ax-01"&gt;…&lt;/li&gt;
+    &lt;li class="item" data-id="ax-02"&gt;…&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/main&gt;</pre></div>
+          <div class="pane" id="p-co" role="tabpanel" aria-labelledby="t-co" hidden>
+            <div>log&nbsp;&nbsp;&nbsp; Page ready in 412 ms</div>
+            <div style="margin-top:6px"><span class="warn">warn</span>&nbsp;&nbsp; Image has no alt text: banner.jpg</div>
+            <div style="margin-top:6px"><span class="bad">error</span>&nbsp; Request blocked: ads.example.net/track.js</div>
+          </div>
+          <div class="pane" id="p-ne" role="tabpanel" aria-labelledby="t-ne" hidden>
+            <table>
+              <thead><tr><th>Method</th><th>URL</th><th>Status</th></tr></thead>
+              <tbody id="net-body">
+                <tr><td>GET</td><td>/index.html</td><td><span class="ok">200 OK</span></td></tr>
+                <tr><td>GET</td><td>/app.css</td><td><span class="ok">200 OK</span></td></tr>
+                <tr><td>GET</td><td>ads.example.net/track.js</td><td><span class="bad">Blocked</span></td></tr>
+                <tr><td>POST</td><td>/api/cart</td><td><span class="ok">201 Created</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            <span>Interactive preview of AxBrowser's in-app inspection panels.</span>
+            <span>Click "+ Simulate Request" to test</span>
+          </p>
+        </div>
+
+        <dl class="rows">
+          <div>
+            <dt>Elements</dt>
+            <dd>Inspect live HTML hierarchy and attributes on any mobile webpage.</dd>
+          </div>
+          <div>
+            <dt>Console</dt>
+            <dd>Catch runtime logs, warnings, and script errors on the go.</dd>
+          </div>
+          <div>
+            <dt>Network</dt>
+            <dd>Audit every request and status code, including trackers stopped by Ad-Block.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04: PROXY -->
+  <section class="sec" id="proxy" data-idx="04" data-rx="2.35" data-ry="3.1" data-sc="0.9" aria-labelledby="h-proxy">
+    <div class="wrap">
+      <div class="card tilt-card">
+        <span class="sec-tag">04 // Per-App Routing</span>
+        <h2 id="h-proxy">Your own <mark>proxy</mark>, for the browser only.</h2>
+        <p class="lead">
+          AxBrowser routes its traffic through Android's WebView ProxyController. No system-wide VPN slot required and no root permissions needed.
+        </p>
+
+        <figure class="route">
+          <svg viewBox="0 0 400 150" role="img" aria-label="AxBrowser sends traffic through your proxy to the website. Other apps connect to the website directly.">
+            <path class="dr" d="M104 118H346V66"/>
+            <path class="fl" d="M104 44H150M250 44H296"/>
+            <circle class="pkt" cx="104" cy="44" r="5"/>
+            <rect class="n1" x="4" y="22" width="100" height="44" rx="12"/>
+            <text x="54" y="49" text-anchor="middle">AxBrowser</text>
+            <rect class="n2" x="150" y="22" width="100" height="44" rx="12"/>
+            <text x="200" y="49" text-anchor="middle">Your Proxy</text>
+            <rect class="n3" x="296" y="22" width="100" height="44" rx="12"/>
+            <text x="346" y="49" text-anchor="middle">Website</text>
+            <rect class="n0" x="4" y="96" width="100" height="44" rx="12"/>
+            <text x="54" y="123" text-anchor="middle">Other Apps</text>
+          </svg>
+          <figcaption>Only AxBrowser routes through your proxy; other apps keep their direct connection.</figcaption>
+        </figure>
+
+        <dl class="rows">
+          <div>
+            <dt>Browser-isolated</dt>
+            <dd>Pages load through your configured proxy while the rest of your phone stays untouched.</dd>
+          </div>
+          <div>
+            <dt>Authenticated proxies</dt>
+            <dd>Username and password challenges are handled natively the way Chromium expects.</dd>
+          </div>
+          <div>
+            <dt>Pairs with anti-fingerprinting</dt>
+            <dd>Mask your network origin while limiting what scripts can infer about your device.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05: PRIVACY -->
+  <section class="sec right" id="privacy" data-idx="05" data-rx="3.05" data-ry="3.9" data-sc="0.95" aria-labelledby="h-priv">
+    <div class="wrap">
+      <div class="card tilt-card">
+        <span class="sec-tag tm">05 // Defense In Depth</span>
+        <h2 id="h-priv"><mark class="tm">Ad-block</mark> and fingerprint protection, built in.</h2>
+        <p class="lead">
+          Layered privacy safeguards that work out of the box, with per-site toggles when you need them.
+        </p>
+        <dl class="rows">
+          <div>
+            <dt>Ad-block with allowlist</dt>
+            <dd>Drops ad and tracker requests before they load, with a one-tap per-site allowlist.</dd>
+          </div>
+          <div>
+            <dt>Fingerprint protection</dt>
+            <dd>Injects hardening scripts at page start to restrict high-entropy browser identifiers.</dd>
+          </div>
+          <div>
+            <dt>Keystore password manager</dt>
+            <dd>Saved credentials are encrypted with hardware-backed keys inside the Android Keystore.</dd>
+          </div>
+          <div>
+            <dt>Biometric &amp; PIN lock</dt>
+            <dd>Require your fingerprint or PIN before anyone can open your browser sessions.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06: EVERYDAY BROWSING & OPEN SOURCE -->
+  <section class="sec" id="browsing" data-idx="06" data-rx="3.7" data-ry="4.6" data-sc="0.92" aria-labelledby="h-brow">
+    <div class="wrap">
+      <div class="card tilt-card">
+        <span class="sec-tag">06 // Everyday Craft</span>
+        <h2 id="h-brow">All the <mark>everyday</mark> features, crafted in Kotlin.</h2>
+        <p class="lead">
+          Built natively with Kotlin and Jetpack Compose, completely open source on <a href="https://github.com/akborana3/AxBrowser" target="_blank" rel="noopener">GitHub</a>, and updated automatically via in-app nightly releases.
+        </p>
+        <dl class="rows">
+          <div>
+            <dt>Reader mode</dt>
+            <dd>Strips cluttered pages down to clean, distraction-free typography.</dd>
+          </div>
+          <div>
+            <dt>Edge-swipe &amp; autocomplete</dt>
+            <dd>Swipe from screen edges to navigate back/forward and jump to sites faster.</dd>
+          </div>
+          <div>
+            <dt>Drag-and-drop tab groups</dt>
+            <dd>Organize research with Chrome-style tab groups and smooth drag-and-drop.</dd>
+          </div>
+          <div>
+            <dt>Bookmark HTML import/export</dt>
+            <dd>Move your bookmarks freely in standard Netscape HTML format.</dd>
+          </div>
+          <div>
+            <dt>Wi-Fi-only &amp; battery saver</dt>
+            <dd>Hold large downloads for Wi-Fi and block heavy images on low battery.</dd>
+          </div>
+          <div>
+            <dt>In-app nightly updater</dt>
+            <dd>Checks GitHub nightly releases and installs updates directly inside the browser.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec right" id="faq" data-idx="06" data-rx="4.2" data-ry="5.2" data-sc="0.9" aria-labelledby="h-faq">
+    <div class="wrap">
+      <div class="card tilt-card">
+        <span class="sec-tag tm">FAQ // Details</span>
+        <h2 id="h-faq">Questions people ask about AxBrowser</h2>
+        <div class="faq">
+          <details>
+            <summary>What is AxBrowser?</summary>
+            <p>AxBrowser is an open-source Android web browser with a built-in AI agent, developer tools, proxy support, ad-block and fingerprint protection. It is built with Kotlin and Jetpack Compose and updated through nightly releases on GitHub.</p>
+          </details>
+          <details>
+            <summary>Where can I view the source code?</summary>
+            <p>AxBrowser is 100% open source. You can browse the code, star the repo, or audit commits at <a href="https://github.com/akborana3/AxBrowser" target="_blank" rel="noopener">github.com/akborana3/AxBrowser</a>.</p>
+          </details>
+          <details>
+            <summary>Does AxBrowser have an AI agent?</summary>
+            <p>Yes. The agent runs a ReAct loop: it reasons about your goal, chooses one browser action as JSON, reads the result and repeats until the task is done. You choose the model through OpenRouter.</p>
+          </details>
+          <details>
+            <summary>Can I use a proxy with a username and password?</summary>
+            <p>Yes. AxBrowser sends browser traffic through your proxy using Android's WebView ProxyController and passes credentials the way Chromium expects, so authenticated proxies connect without affecting other apps on your phone.</p>
+          </details>
+          <details>
+            <summary>Who made AxBrowser &amp; how do I get in touch?</summary>
+            <p>AxBrowser is built by independent developer <strong>Abhishek Borana (AKAY)</strong> — visit <a href="https://akay.is-a.dev" target="_blank" rel="noopener">akay.is-a.dev</a> for author details, or join <a href="https://t.me/AxBrowser" target="_blank" rel="noopener">t.me/AxBrowser</a> on Telegram for updates, support, and feature discussions.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07: DOWNLOAD CTA & AUTHOR -->
+  <section class="sec" id="get" data-idx="07" data-rx="0.25" data-ry="0.55" data-sc="1.05" data-logo="1" aria-labelledby="h-get">
+    <div class="wrap">
+      <div class="card tilt-card">
+        <span class="sec-tag">07 // Get Started</span>
+        <h2 id="h-get">Install <mark>AxBrowser</mark> today.</h2>
+        <p class="lead">
+          Grab the latest nightly APK directly from GitHub Releases or scan the QR code to install straight onto your Android phone. Built by <a rel="author me" href="https://akay.is-a.dev" target="_blank" rel="noopener">Abhishek Borana (AKAY)</a>. Join our community at <a href="https://t.me/AxBrowser" target="_blank" rel="noopener">t.me/AxBrowser</a>.
+        </p>
+        <div class="btns">
+          <a class="btn p mag" href="https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk">
+            <span>Download Nightly APK</span>
+            <span class="arr">↘</span>
+          </a>
+          <button class="btn qr-trigger mag" type="button">
+            <span>Scan QR Code</span>
+            <span class="arr">⊞</span>
+          </button>
+          <a class="btn tm mag" href="https://github.com/akborana3/AxBrowser" target="_blank" rel="noopener">
+            <span>GitHub Repository</span>
+            <span class="arr">↗</span>
+          </a>
+          <a class="btn mag" href="https://akay.is-a.dev" target="_blank" rel="noopener">
+            <span>Author: akay.is-a.dev</span>
+            <span class="arr">↗</span>
+          </a>
+          <a class="btn mag" href="https://t.me/AxBrowser" target="_blank" rel="noopener">
+            <span>Contact: t.me/AxBrowser</span>
+            <span class="arr">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- QR CODE MODAL FOR INSTANT MOBILE APK INSTALL -->
+<div class="qr-modal" id="qr-modal" role="dialog" aria-modal="true" aria-labelledby="qr-title" aria-hidden="true">
+  <div class="qr-box">
+    <div class="qr-head">
+      <h3 id="qr-title">Scan to Install APK</h3>
+      <button class="qr-close" id="qr-close" type="button" aria-label="Close QR Modal">✕</button>
+    </div>
+    <p style="font-size:0.9rem;opacity:0.85">Point your Android camera at the QR code to download the latest <strong>AxBrowser-nightly.apk</strong> directly.</p>
+    <div class="qr-frame">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=4&color=110d1d&bgcolor=ffffff&data=https%3A%2F%2Fgithub.com%2Fakborana3%2FAxBrowser%2Freleases%2Fdownload%2Fnightly%2FAxBrowser-nightly.apk" alt="QR Code for AxBrowser Nightly APK" loading="lazy">
+    </div>
+    <div class="qr-url">https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn p" id="copy-apk" type="button">
+        <span id="copy-txt">Copy APK Link</span>
+        <span class="arr">⎘</span>
+      </button>
+      <a class="btn tm" href="https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk">
+        <span>Direct Download</span>
+        <span class="arr">↘</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 AxBrowser. Built by <a rel="author" href="https://akay.is-a.dev" target="_blank" rel="noopener">Abhishek Borana (AKAY)</a>.</span>
+    <div class="foot-links">
+      <a href="https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk">Download APK</a>
+      <a href="https://github.com/akborana3/AxBrowser" target="_blank" rel="noopener">Source Code</a>
+      <a href="https://akay.is-a.dev" target="_blank" rel="noopener">akay.is-a.dev</a>
+      <a href="https://t.me/AxBrowser" target="_blank" rel="noopener">t.me/AxBrowser</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ==========================================================================
+     1. UNIFIED SCROLL, MOUSE & TOUCH VELOCITY ENGINE + 2D PARTICLE TRAIL
+     ========================================================================== */
+  const fxCanvas = document.getElementById('fx-canvas');
+  const fxCtx = fxCanvas.getContext('2d');
+  const velTxt = document.getElementById('vel-txt');
+  const velDot = document.getElementById('vel-dot');
+  const marqueeTrack = document.getElementById('marquee-track');
+
+  let fW = innerWidth, fH = innerHeight;
+  const resizeFx = () => {
+    fW = innerWidth;
+    fH = innerHeight;
+    fxCanvas.width = fW * Math.min(devicePixelRatio, 1.5);
+    fxCanvas.height = fH * Math.min(devicePixelRatio, 1.5);
+    fxCtx.setTransform(Math.min(devicePixelRatio, 1.5), 0, 0, Math.min(devicePixelRatio, 1.5), 0, 0);
+  };
+  addEventListener('resize', resizeFx);
+  resizeFx();
+
+  // Physics State
+  const phys = {
+    scrollY: window.scrollY,
+    scrollVel: 0,
+    pointerX: 0,
+    pointerY: 0,
+    lastPX: innerWidth * 0.5,
+    lastPY: innerHeight * 0.5,
+    pointerVel: 0,
+    spinImpulseX: 0,
+    spinImpulseY: 0,
+    marqueeX: 0,
+    marqueeDir: -1
+  };
+
+  // Kinetic Particles spawned by Mouse & Touch Velocity
+  const particles = [];
+  const paletteColors = ['#D4FF3F', '#E84234', '#C8B2F8', '#110d1d'];
+
+  function spawnParticles(x, y, vx, vy, count = 2) {
+    if (reduce) return;
+    for (let i = 0; i < count; i++) {
+      if (particles.length > 90) particles.shift();
+      const speed = Math.hypot(vx, vy);
+      particles.push({
+        x: x + (Math.random() - 0.5) * 14,
+        y: y + (Math.random() - 0.5) * 14,
+        vx: vx * 0.18 + (Math.random() - 0.5) * 2.5,
+        vy: vy * 0.18 + (Math.random() - 0.5) * 2.5,
+        r: Math.min(14, Math.max(4, speed * 0.16 + Math.random() * 5)),
+        color: paletteColors[Math.floor(Math.random() * 3)],
+        life: 1
+      });
+    }
+  }
+
+  function handlePointerInput(clientX, clientY, isTouch) {
+    const dx = clientX - phys.lastPX;
+    const dy = clientY - phys.lastPY;
+    phys.lastPX = clientX;
+    phys.lastPY = clientY;
+
+    phys.pointerX = clientX / innerWidth - 0.5;
+    phys.pointerY = clientY / innerHeight - 0.5;
+
+    const instVel = Math.min(85, Math.hypot(dx, dy));
+    phys.pointerVel = Math.max(phys.pointerVel, instVel);
+
+    // Inject rotational impulse into the 3D sculpture from mouse/touch velocity
+    phys.spinImpulseY += dx * (isTouch ? 0.0045 : 0.0018);
+    phys.spinImpulseX += dy * (isTouch ? 0.0045 : 0.0018);
+
+    if (instVel > 4) {
+      spawnParticles(clientX, clientY, dx, dy, isTouch ? 3 : 1);
+    }
+  }
+
+  addEventListener('pointermove', e => handlePointerInput(e.clientX, e.clientY, e.pointerType === 'touch'), { passive: true });
+  addEventListener('touchmove', e => {
+    if (e.touches && e.touches[0]) {
+      handlePointerInput(e.touches[0].clientX, e.touches[0].clientY, true);
+    }
+  }, { passive: true });
+
+  // Touch burst on tap
+  addEventListener('pointerdown', e => {
+    phys.lastPX = e.clientX;
+    phys.lastPY = e.clientY;
+    spawnParticles(e.clientX, e.clientY, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, 8);
+    phys.spinImpulseY += 0.12;
+  }, { passive: true });
+
+  // Scroll Velocity Listener
+  addEventListener('scroll', () => {
+    const curY = window.scrollY;
+    const dy = curY - phys.scrollY;
+    phys.scrollY = curY;
+    phys.scrollVel = Math.max(-90, Math.min(90, dy));
+    if (Math.abs(dy) > 1) {
+      phys.marqueeDir = dy > 0 ? -1 : 1;
+      phys.spinImpulseY += dy * 0.0022;
+      phys.spinImpulseX += dy * 0.0012;
+    }
+  }, { passive: true });
+
+  /* ==========================================================================
+     2. UPGRADED THREE.JS: HIGH-DENSITY INTERTWINED TUBES + FLOATING EMBLEM
+     ========================================================================== */
+  const canvas = document.getElementById('scene');
+  let renderer, pulseTargetColor = null;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  } catch (e) {
+    canvas.remove();
+  }
+
+  let step3D = () => {};
+
+  if (renderer) {
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.18;
+
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(36, 1, 0.1, 60);
+    cam.position.set(0, 0, 9.2);
+
+    const root = new THREE.Group();
+    scene.add(root);
+
+    // Studio Lighting
+    const amb = new THREE.AmbientLight(0xffffff, 0.8);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    keyLight.position.set(5, 8, 7);
+    const rimLight = new THREE.DirectionalLight(0xD4FF3F, 0.95);
+    rimLight.position.set(-6, -5, 4);
+    const fillLight = new THREE.PointLight(0xE84234, 0.75, 22);
+    fillLight.position.set(0, -4, 5);
+    scene.add(amb, keyLight, rimLight, fillLight);
+
+    // Upgraded High-Density Intertwined Helical Torus Curve (3 turns for tighter knot density)
+    function makeHelixCurve(phase, radius, height, turns) {
+      const pts = [];
+      const steps = 160;
+      for (let i = 0; i <= steps; i++) {
+        const u = (i / steps) * Math.PI * 2;
+        const angle = u * turns + phase;
+        const x = Math.cos(angle) * (radius + 0.42 * Math.cos(u * 2));
+        const y = Math.sin(u) * height + 0.34 * Math.sin(angle);
+        const z = Math.sin(angle) * (radius + 0.42 * Math.cos(u * 2));
+        pts.push(new THREE.Vector3(x, y, z));
+      }
+      return new THREE.CatmullRomCurve3(pts, true, 'centripetal');
+    }
+
+    // Glossy Lavender Tube (#B594F8)
+    const lavMat = new THREE.MeshPhysicalMaterial({
+      color: 0xb594f8,
+      roughness: 0.13,
+      metalness: 0.06,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.09
+    });
+    const lavGeo = new THREE.TubeGeometry(makeHelixCurve(0, 1.06, 2.28, 3), 220, 0.44, 40, true);
+    const lavTube = new THREE.Mesh(lavGeo, lavMat);
+
+    // Glossy Tomato Red Tube (#E84234)
+    const redMat = new THREE.MeshPhysicalMaterial({
+      color: 0xE84234,
+      roughness: 0.11,
+      metalness: 0.08,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.08
+    });
+    const redGeo = new THREE.TubeGeometry(makeHelixCurve(Math.PI, 1.08, 2.28, 3), 220, 0.42, 40, true);
+    const redTube = new THREE.Mesh(redGeo, redMat);
+
+    const sculpture = new THREE.Group();
+    sculpture.add(lavTube, redTube);
+    sculpture.rotation.z = 0.28;
+    root.add(sculpture);
+
+    // Chartreuse (#D4FF3F) Orbital Rings & Spheres
+    const crMat = new THREE.MeshStandardMaterial({
+      color: 0xD4FF3F,
+      emissive: 0xD4FF3F,
+      emissiveIntensity: 0.38,
+      roughness: 0.18,
+      metalness: 0.1
+    });
+
+    const orbitGroup = new THREE.Group();
+    const ring1 = new THREE.Mesh(new THREE.TorusGeometry(2.38, 0.024, 16, 150), crMat);
+    ring1.rotation.set(1.15, 0.35, -0.4);
+
+    const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.68, 0.018, 16, 150), crMat);
+    ring2.rotation.set(-0.95, -0.45, 0.5);
+
+    const orb1 = new THREE.Mesh(new THREE.SphereGeometry(0.28, 32, 32), crMat);
+    orb1.position.set(2.18, 1.1, 0.6);
+
+    const orb2 = new THREE.Mesh(new THREE.SphereGeometry(0.46, 32, 32), crMat);
+    orb2.position.set(-1.68, -1.75, 0.85);
+
+    orbitGroup.add(ring1, ring2, orb1, orb2);
+    root.add(orbitGroup);
+
+    // 3D Velocity-Reactive Particle Field
+    const pCount = 110;
+    const pPos = new Float32Array(pCount * 3);
+    for (let i = 0; i < pCount; i++) {
+      pPos[i * 3] = (Math.random() - 0.5) * 9;
+      pPos[i * 3 + 1] = (Math.random() - 0.5) * 7;
+      pPos[i * 3 + 2] = (Math.random() - 0.5) * 5;
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const pMat = new THREE.PointsMaterial({ color: 0x110d1d, size: 0.055, transparent: true, opacity: 0.45 });
+    const starField = new THREE.Points(pGeo, pMat);
+    scene.add(starField);
+
+    // Floating 3D AxBrowser Logo Badge (from original base64 texture)
+    const logoBadge = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.35, 1.35),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+    );
+    logoBadge.position.set(0, 0, 2.35);
+    root.add(logoBadge);
+
+    new THREE.TextureLoader().load(
+      document.querySelector('.mark').src,
+      tex => {
+        logoBadge.material.map = tex;
+        logoBadge.material.needsUpdate = true;
+      }
+    );
+
+    const S = { rx: 0.22, ry: 0.45, sc: 1, showLogo: 1 };
+    const C = { rx: 0.22, ry: 0.45, sc: 1, logoOp: 0.85 };
+    let baseScale = 1, clock = 0;
+
+    step3D = (dt, snap) => {
+      const k = snap ? 1 : 1 - Math.exp(-dt * 3.5);
+
+      // Apply scroll & touch/mouse velocity impulses
+      S.rx += phys.spinImpulseX;
+      S.ry += phys.spinImpulseY;
+      phys.spinImpulseX *= 0.88;
+      phys.spinImpulseY *= 0.88;
+
+      C.rx += (S.rx - phys.pointerY * 0.42 - C.rx) * k;
+      C.ry += (S.ry + phys.pointerX * 0.52 - C.ry) * k;
+
+      // Velocity stretch on 3D sculpture
+      const velBoost = Math.min(0.22, (Math.abs(phys.scrollVel) + phys.pointerVel) * 0.0022);
+      C.sc += (S.sc + velBoost - C.sc) * k;
+      C.logoOp += ((S.showLogo ? 0.92 : 0) - C.logoOp) * k;
+
+      if (!snap) clock += dt * (1 + velBoost * 3.5);
+
+      sculpture.rotation.x = C.rx + Math.sin(clock * 0.5) * 0.08;
+      sculpture.rotation.y = C.ry + clock * 0.22;
+
+      // Subtle breathing twist on individual tubes
+      lavTube.scale.setScalar(1 + Math.sin(clock * 1.6) * 0.025 + velBoost * 0.2);
+      redTube.scale.setScalar(1 + Math.cos(clock * 1.6) * 0.025 + velBoost * 0.2);
+
+      orbitGroup.rotation.y = -clock * 0.28 + phys.pointerX * 0.35;
+      orbitGroup.rotation.x = Math.cos(clock * 0.4) * 0.14 - phys.pointerY * 0.25;
+      orbitGroup.scale.setScalar(1 + velBoost * 0.45);
+
+      orb1.position.y = 1.1 + Math.sin(clock * 1.5) * 0.24;
+      orb2.position.y = -1.75 + Math.cos(clock * 1.2) * 0.2;
+
+      // Keep floating logo facing camera with gentle bobbing
+      logoBadge.material.opacity = C.logoOp * 0.22;
+      logoBadge.position.y = Math.sin(clock * 1.1) * 0.12;
+      logoBadge.rotation.z = Math.sin(clock * 0.7) * 0.06;
+
+      // Rotate starfield with scroll & mouse velocity
+      starField.rotation.y += dt * 0.05 + phys.spinImpulseY * 0.15;
+      starField.rotation.x += phys.spinImpulseX * 0.15;
+      pMat.color.setHex(document.documentElement.dataset.theme === 'dark' ? 0xD4FF3F : 0x110d1d);
+
+      root.scale.setScalar(C.sc * baseScale);
+      renderer.render(scene, cam);
+    };
+
+    function size() {
+      const w = innerWidth, h = innerHeight, wide = w > 900;
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.8));
+      renderer.setSize(w, h, false);
+      cam.aspect = w / h;
+      cam.updateProjectionMatrix();
+
+      const halfW = Math.tan((18 * Math.PI) / 180) * 9.2 * (w / h);
+      root.position.set(wide ? Math.max(0.75, halfW * 0.35) : 0, wide ? 0.05 : 0.28, 0);
+      baseScale = Math.min(1.08, Math.max(0.68, halfW / 2.7));
+      if (reduce) step3D(0, true);
+    }
+
+    addEventListener('resize', size);
+    size();
+
+    // Swatch Click Interaction: Pulse 3D Tube Colors & Spawn Particle Ring
+    document.querySelectorAll('.swatch').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const hex = btn.dataset.color;
+        fillLight.color.set(hex);
+        phys.spinImpulseY += 0.45;
+        const rect = btn.getBoundingClientRect();
+        spawnParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 0, -12, 16);
+      });
+    });
+
+    // Section Scroll Observer
+    const railLinks = [...document.querySelectorAll('.rail-specs a')];
+    const navLinks = [...document.querySelectorAll('nav a[href^="#"]')];
+    const curIdxEl = document.getElementById('cur-idx');
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const d = e.target.dataset;
+        S.rx = parseFloat(d.rx || 0.22);
+        S.ry = parseFloat(d.ry || 0.45);
+        S.sc = parseFloat(d.sc || 1);
+        S.showLogo = d.logo === '1' ? 1 : 0;
+        if (d.idx && curIdxEl) curIdxEl.textContent = d.idx;
+
+        const id = e.target.id;
+        railLinks.forEach(a => a.classList.toggle('on', a.dataset.sec === id));
+        navLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
+        if (reduce) step3D(0, true);
+      });
+    }, { rootMargin: '-42% 0px -42% 0px' });
+
+    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
+  }
+
+  /* ==========================================================================
+     3. MASTER ANIMATION LOOP (3D + 2D Velocity Trail + Marquee + Skew)
+     ========================================================================== */
+  let lastT = performance.now();
+  function masterLoop(t) {
+    const dt = Math.min(0.05, (t - lastT) / 1000);
+    lastT = t;
+
+    // Decay scroll & pointer velocities smoothly
+    phys.scrollVel *= 0.86;
+    phys.pointerVel *= 0.88;
+
+    // Apply scroll velocity skew to typography & cards
+    const skewDeg = Math.max(-3.2, Math.min(3.2, phys.scrollVel * 0.045));
+    document.documentElement.style.setProperty('--scroll-skew', skewDeg.toFixed(2) + 'deg');
+
+    // Update Velocity Telemetry HUD
+    const combinedVel = (Math.abs(phys.scrollVel) + phys.pointerVel) * 0.08;
+    if (velTxt && velDot) {
+      if (combinedVel > 0.3) {
+        velTxt.textContent = `VELOCITY // ${combinedVel.toFixed(1)}x ACTIVE`;
+        velDot.style.background = '#E84234';
+        velDot.style.transform = `scale(${Math.min(1.6, 1 + combinedVel * 0.12)})`;
+      } else {
+        velTxt.textContent = 'PHYSICS // IDLE 1.0x';
+        velDot.style.background = '#D4FF3F';
+        velDot.style.transform = 'scale(1)';
+      }
+    }
+
+    // Velocity-Reactive Marquee Ticker
+    if (marqueeTrack) {
+      const baseSpeed = 48;
+      const boost = Math.abs(phys.scrollVel) * 4.5 + phys.pointerVel * 1.2;
+      phys.marqueeX += phys.marqueeDir * (baseSpeed + boost) * dt;
+      const halfWidth = marqueeTrack.scrollWidth / 2;
+      if (halfWidth > 0) {
+        if (phys.marqueeX <= -halfWidth) phys.marqueeX += halfWidth;
+        if (phys.marqueeX > 0) phys.marqueeX -= halfWidth;
+        marqueeTrack.style.transform = `translate3d(${phys.marqueeX}px, 0, 0)`;
+      }
+    }
+
+    // Render 2D Mouse & Touch Velocity Particles
+    fxCtx.clearRect(0, 0, fW, fH);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.94;
+      p.vy *= 0.94;
+      p.life -= dt * 1.9;
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+      fxCtx.save();
+      fxCtx.globalAlpha = p.life;
+      fxCtx.fillStyle = p.color;
+      fxCtx.strokeStyle = '#110d1d';
+      fxCtx.lineWidth = 1.5;
+      fxCtx.beginPath();
+      fxCtx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+      fxCtx.fill();
+      fxCtx.stroke();
+      fxCtx.restore();
+    }
+
+    // Step Three.js Scene
+    step3D(dt, false);
+
+    if (!reduce) requestAnimationFrame(masterLoop);
+  }
+
+  if (reduce) {
+    step3D(0, true);
+  } else {
+    requestAnimationFrame(masterLoop);
+  }
+
+  /* ==========================================================================
+     4. 3D TILT & GLARE CARDS + MAGNETIC BUTTONS (Mouse & Touch)
+     ========================================================================== */
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    const updateTilt = (clientX, clientY) => {
+      if (reduce) return;
+      const r = card.getBoundingClientRect();
+      const x = clientX - r.left;
+      const y = clientY - r.top;
+      const nx = x / r.width - 0.5;
+      const ny = y / r.height - 0.5;
+      card.style.setProperty('--rx', (-ny * 4.5).toFixed(2) + 'deg');
+      card.style.setProperty('--ry', (nx * 4.5).toFixed(2) + 'deg');
+      card.style.setProperty('--gx', x.toFixed(0) + 'px');
+      card.style.setProperty('--gy', y.toFixed(0) + 'px');
+      card.style.setProperty('--gop', '1');
+    };
+    const resetTilt = () => {
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+      card.style.setProperty('--gop', '0');
+    };
+    card.addEventListener('pointermove', e => updateTilt(e.clientX, e.clientY), { passive: true });
+    card.addEventListener('pointerleave', resetTilt);
+    card.addEventListener('touchend', resetTilt, { passive: true });
+  });
+
+  // Magnetic Buttons
+  document.querySelectorAll('.mag').forEach(btn => {
+    btn.addEventListener('pointermove', e => {
+      if (reduce || e.pointerType === 'touch') return;
+      const r = btn.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) * 0.22;
+      const dy = (e.clientY - (r.top + r.height / 2)) * 0.22;
+      btn.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
+    });
+    btn.addEventListener('pointerleave', () => {
+      btn.style.transform = '';
+    });
+  });
+
+  // Scroll Reveal Observer for Cards
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  document.querySelectorAll('.card').forEach(c => revealObs.observe(c));
+
+  /* ==========================================================================
+     5. QR CODE MODAL & ONE-CLICK APK LINK COPY
+     ========================================================================== */
+  const qrModal = document.getElementById('qr-modal');
+  const qrClose = document.getElementById('qr-close');
+  const copyBtn = document.getElementById('copy-apk');
+  const copyTxt = document.getElementById('copy-txt');
+  const apkUrl = 'https://github.com/akborana3/AxBrowser/releases/download/nightly/AxBrowser-nightly.apk';
+
+  const toggleQr = open => {
+    qrModal.setAttribute('aria-hidden', String(!open));
+    if (open) qrClose.focus();
+  };
+
+  document.querySelectorAll('.qr-trigger').forEach(btn => {
+    btn.addEventListener('click', () => toggleQr(true));
+  });
+  qrClose.addEventListener('click', () => toggleQr(false));
+  qrModal.addEventListener('click', e => {
+    if (e.target === qrModal) toggleQr(false);
+  });
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape' && qrModal.getAttribute('aria-hidden') === 'false') toggleQr(false);
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(apkUrl);
+      copyTxt.textContent = 'Copied to Clipboard ✓';
+      setTimeout(() => { copyTxt.textContent = 'Copy APK Link'; }, 2200);
+    } catch (e) {
+      copyTxt.textContent = 'Link Ready Above';
+    }
+  });
+
+  /* ==========================================================================
+     6. AGENT REACT TRACE SIMULATOR & DEVTOOLS SIMULATOR
+     ========================================================================== */
+  const log = document.getElementById('log');
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const T = [
+    ['goal', 'Find the cheapest 256 GB phone on this page'],
+    ['thought', 'I need the product list, so I will read the page first.'],
+    ['action', '{"action":"read_page","target":"main"}'],
+    ['observe', '24 products found. Prices are listed in ₹.'],
+    ['thought', 'Sort by price, then take the first 256 GB result.'],
+    ['action', '{"action":"click","target":"Sort: Price, low to high"}'],
+    ['observe', 'List re-ordered. First 256 GB item costs ₹18,499.'],
+    ['done', 'The cheapest 256 GB phone on this page is ₹18,499.']
+  ];
+  const names = { goal: 'Goal', thought: 'Thought', action: 'Action', observe: 'Observation', done: 'Answer' };
+  let run = 0;
+
+  async function play() {
+    const id = ++run;
+    log.innerHTML = '';
+    log.setAttribute('aria-busy', 'true');
+    for (const [k, t] of T) {
+      if (id !== run) return;
+      const row = document.createElement('div');
+      const b = document.createElement('b');
+      const s = document.createElement('span');
+      row.className = 'ln k-' + k;
+      b.textContent = names[k];
+      row.append(b, s);
+      log.append(row);
+      if (reduce) {
+        s.textContent = t;
+        continue;
+      }
+      s.classList.add('cur');
+      for (let i = 0; i < t.length; i++) {
+        if (id !== run) return;
+        s.textContent = t.slice(0, i + 1);
+        await sleep(k === 'observe' ? 8 : /[.,}]/.test(t[i]) ? 95 : 12 + Math.random() * 18);
+      }
+      s.classList.remove('cur');
+      await sleep(k === 'action' ? 520 : 320 + Math.random() * 220);
+    }
+    log.removeAttribute('aria-busy');
+  }
+
+  document.getElementById('replay').addEventListener('click', play);
+  new IntersectionObserver((es, o) => {
+    if (es[0].isIntersecting) {
+      o.disconnect();
+      play();
+    }
+  }, { threshold: 0.35 }).observe(log);
+
+  // DevTools Tabs & "+ Simulate Request" Interactive Button
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const switchTab = targetTab => {
+    tabs.forEach(x => x.setAttribute('aria-selected', String(x === targetTab)));
+    document.querySelectorAll('[role="tabpanel"]').forEach(p => {
+      p.hidden = p.id !== targetTab.getAttribute('aria-controls');
+    });
+  };
+  tabs.forEach(t => t.addEventListener('click', () => switchTab(t)));
+
+  const mockReqs = [
+    ['GET', '/api/v2/models/openrouter.json', '200 OK', 'ok'],
+    ['POST', 'telemetry.adtrack.org/beacon', 'Blocked', 'bad'],
+    ['GET', '/proxy/tunnel?auth=cr_ok', '101 Switching', 'ok'],
+    ['GET', 'fingerprint.spy.io/canvas.js', 'Spoofed', 'warn']
+  ];
+  let reqIdx = 0;
+  document.getElementById('sim-net').addEventListener('click', () => {
+    switchTab(document.getElementById('t-ne'));
+    const tbody = document.getElementById('net-body');
+    const [m, u, st, cls] = mockReqs[reqIdx % mockReqs.length];
+    reqIdx++;
+    const tr = document.createElement('tr');
+    tr.style.animation = 'rowFade 0.25s ease both';
+    tr.innerHTML = `<td>${m}</td><td>${u}</td><td><span class="${cls}">${st}</span></td>`;
+    tbody.appendChild(tr);
+    if (tbody.children.length > 7) tbody.removeChild(tbody.firstElementChild);
+  });
+
+  /* ==========================================================================
+     7. THEME TOGGLE & SCROLL PROGRESS BAR
+     ========================================================================== */
+  const tg = document.getElementById('theme');
+  const apply = mode => {
+    document.documentElement.dataset.theme = mode;
+    tg.setAttribute('aria-label', mode === 'dark' ? 'Switch to Lavender theme' : 'Switch to Dark theme');
+    document.getElementById('tc').content = mode === 'dark' ? '#0e0b16' : '#C8B2F8';
+  };
+  apply(document.documentElement.dataset.theme || 'lavender');
+  tg.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'lavender' : 'dark';
+    apply(next);
+    try { localStorage.setItem('ax-theme', next); } catch (e) {}
+  });
+
+  const prog = document.createElement('div');
+  prog.id = 'prog';
+  document.body.prepend(prog);
+  const sc = () => {
+    prog.style.transform = 'scaleX(' + Math.min(1, scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)) + ')';
+  };
+  addEventListener('scroll', sc, { passive: true });
+  sc();
+})();
+</script>
+</body>
+</html>
